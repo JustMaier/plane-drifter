@@ -16,10 +16,10 @@ const RedditVision = ({ content }) => {
   useEffect(() => { fetchRedditMedia(content).then(setMedia) }, [content])
 
   let vision = <p>Loading from Reddit...</p>
-  if (media.type === 'video') vision = <video src={media.content} controls autoPlay loop />
+  if (media.type === 'video') vision = <video src={media.content} controls autoPlay loop playsInline muted />
   else if (media.type === 'text') vision = <div>{media.content}</div>
   else if (media.type === 'url') {
-    if (media.content.endsWith('gifv')) vision = <video src={media.content.replace('.gifv', '.mp4')} controls autoPlay loop />
+    if (media.content.endsWith('gifv')) vision = <video src={media.content.replace('.gifv', '.mp4')} controls autoPlay loop playsInline muted />
     else if (media.content.includes('gfycat.com')) vision = <iframe src={media.content.replace('.com/', '.com/ifr/')} />
     else if (media.content.includes('youtu')) vision = <YouTubeVision content={media.content} />
     else vision = <img src={media.content} />
