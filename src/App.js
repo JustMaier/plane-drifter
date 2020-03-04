@@ -5,7 +5,7 @@ import { IconContext } from 'react-icons'
 
 function App () {
   return (
-    <IconContext.Provider value={{ className: 'react-icons', size: '2em' }}>
+    <IconContext.Provider value={{ className: 'react-icons' }}>
       <div className='App'>
         <Plane />
       </div>

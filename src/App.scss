@@ -72,12 +72,16 @@ body {
 
     &:first-child {
       border-top-left-radius: 3px;
-      margin-right: 2px;
+      margin-right: 4px;
     }
     
     &:last-child {
       border-top-right-radius: 3px;
-      margin-left: 2px;
+      margin-left: 4px;
+    }
+
+    .react-icons {
+      font-size: 4em;
     }
   }
 }
