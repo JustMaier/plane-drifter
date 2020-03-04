@@ -6,7 +6,7 @@ import TextVision, { isText } from './visions/TextVision'
 // Get Reddit JSON and then parse content out...
 
 const DriftVision = ({ content }) => {
-  let vision = <iframe src={content} />
+  let vision = <iframe title='Drift' src={content} />
   if (isText(content)) vision = <TextVision content={content} />
   else if (isYoutube(content)) vision = <YouTubeVision content={content} />
   else if (isReddit(content)) vision = <RedditVision content={content} />

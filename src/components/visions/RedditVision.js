@@ -20,9 +20,9 @@ const RedditVision = ({ content }) => {
   else if (media.type === 'text') vision = <div>{media.content}</div>
   else if (media.type === 'url') {
     if (media.content.endsWith('gifv')) vision = <video src={media.content.replace('.gifv', '.mp4')} controls autoPlay loop playsInline muted />
-    else if (media.content.includes('gfycat.com')) vision = <iframe src={media.content.replace('.com/', '.com/ifr/')} />
+    else if (media.content.includes('gfycat.com')) vision = <iframe title='Giphy' src={media.content.replace('.com/', '.com/ifr/')} />
     else if (media.content.includes('youtu')) vision = <YouTubeVision content={media.content} />
-    else vision = <img src={media.content} />
+    else vision = <img src={media.content} alt='Reddit Post' />
   }
 
   return (

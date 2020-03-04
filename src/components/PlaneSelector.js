@@ -1,49 +1,19 @@
-import React, { useState, useEffect } from 'react'
-
-const readFile = (file) => new Promise((resolve, reject) => {
-  const reader = new window.FileReader()
-  reader.addEventListener('load', () => {
-    resolve(reader.result)
-  })
-  reader.readAsText(file)
-})
+import React, { useState } from 'react'
+import { MdCloudUpload } from 'react-icons/md'
+import ManualSelector from './selectors/ManualSelector'
+import RedditSelector from './selectors/RedditSelector'
 
 const PlaneSelector = ({ onSelect }) => {
-  const [content, setContent] = useState(null)
-  const [source, setSource] = useState(window.localStorage.planeSource || null)
-  const setContentFromString = (string) => setContent(string.split('\n').filter(x => !!x).map(x => x.trim()))
+  const [manualSource, setManualSource] = useState(false)
 
-  useEffect(() => {
-    if (source) setContentFromString(source)
-  }, [])
-
-  const onFileChange = async ({ target: { files: [file] } }) => {
-    const contentString = await readFile(file)
-    setContentFromString(contentString)
-  }
-  const onTextChange = (e) => {
-    setSource(e.target.value)
-    window.localStorage.planeSource = e.target.value
-    setContentFromString(e.target.value)
-  }
   return (
     <div className='plane-selector'>
       <div className='plane-selector-content'>
-        <h2>Drift on a Higher Plane</h2>
-        <div className='form-group'>
-          <label>Select your Plane file</label>
-          <input type='file' accept='.txt' onChange={onFileChange} />
+        <div className='d-flex'>
+          <h2>Drift on a Higher Plane</h2>
+          <button className={`btn-icon ml-auto ${manualSource ? 'active' : ''}`} onClick={() => { setManualSource(x => !x) }}><MdCloudUpload /></button>
         </div>
-        <div className='form-group mt'>
-          <label><em>Or</em> paste the Plane source here:</label>
-          <textarea rows='3' onChange={onTextChange} value={source} />
-        </div>
-        { !content ? null : (
-          <div className='mt mb'>
-            You've selected a Plane with {content.length} stops
-          </div>
-        )}
-        <button type='button' className='btn btn-block mt' onClick={() => onSelect(content)} disabled={!content || content.length === 0}>Start Drifting</button>
+        { manualSource ? <ManualSelector onSelect={onSelect} /> : <RedditSelector onSelect={onSelect} />}
       </div>
     </div>
   )

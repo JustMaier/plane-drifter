@@ -1,7 +1,7 @@
 import React from 'react'
 import Markdown from 'react-markdown'
 
-const TextRegex = /^(\[?(.*)\])?(.+)/
+const TextRegex = /^(\\?\[?(.*)\\?\])?\s*(.+)/s
 
 const parseStyles = styles => styles
   .split(';')
@@ -16,7 +16,7 @@ const parseStyles = styles => styles
   }), {})
 
 const TextVision = ({ content }) => {
-  const textParts = content.match(TextRegex)
+  const textParts = content.replace('\\[', '[').replace('\\]', ']').match(TextRegex)
   const style = textParts[2] ? parseStyles(textParts[2]) : null
   const text = textParts[3]
   return (
@@ -28,7 +28,7 @@ const TextVision = ({ content }) => {
   )
 }
 
-const UrlRegex = /^https?\:\/\//
+const UrlRegex = /^https?:\/\//
 export const isText = (content) => !UrlRegex.test(content)
 
 export default TextVision

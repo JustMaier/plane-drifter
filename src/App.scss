@@ -1,3 +1,5 @@
+$brand-primary: #3498db;
+
 body {
   background-color:#000;
   color:#fff;
@@ -15,7 +17,38 @@ body {
   align-items: center;
 
   &-content {
-    width:300px;
+    width:350px;
+  }
+}
+
+.reddit-selector {
+  border: 1px solid rgba(#fff, .3);
+  border-radius: 5px;
+
+  &-item {
+    cursor:pointer;
+    background:rgba(#fff, .1);
+    padding: 5px 30px 5px 10px;
+
+    &+&{
+      border-top: 1px solid rgba(#fff, .3);
+    }
+    
+    p {
+      margin:0
+    }
+
+    .title {
+    }
+    .description {
+      font-size: .75em;
+      color:rgba(#fff, .6);
+      margin: 1px 0 2px;
+    }
+    .stops {
+      font-size: .75em;
+      color:rgba(#fff, .8);
+    }
   }
 }
 
@@ -56,7 +89,8 @@ body {
   align-items: center;
 
   & > div {
-    height: 100%;
+    width:100%;
+    height:100%;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -129,6 +163,19 @@ body {
     display:block;
     width:100%;
   }
+
+  &-icon {
+    background:none;
+    border:none;
+    color:inherit;
+    padding:0;
+    line-height: .75;
+    cursor:pointer;
+
+    &.active {
+      color: $brand-primary;
+    }
+  }
 }
 
 .mt {
@@ -137,6 +184,10 @@ body {
 
 .mb {
   margin-bottom: 15px;
+}
+
+.ml-auto {
+  margin-left:auto
 }
 
 .form-group {
@@ -149,4 +200,9 @@ body {
     resize:vertical;
     padding:6px;
   }
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
 }
