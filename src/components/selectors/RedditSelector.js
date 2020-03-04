@@ -14,7 +14,6 @@ const fetchPosts = async () => {
   return posts.map(x => x.data).filter(x => ContentRegex.test(x.selftext)).map(x => {
     const [full, description, contentString] = x.selftext.match(ContentRegex)
     const content = contentString.split('\n\n').map(processStop)
-    console.log(content)
     return {
       id: x.id,
       title: x.title,
