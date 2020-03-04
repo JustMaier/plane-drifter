@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import DriftVision from './DriftVision'
 import DriftControls from './DriftControls'
 import PlaneSelector from './PlaneSelector'
+import DriftProgress from './DriftProgress'
 
 const Plane = ({ children }) => {
   const [planeContent, setPlaneContent] = useState(window.localStorage.plane ? JSON.parse(window.localStorage.plane) : null)
@@ -34,6 +35,7 @@ const Plane = ({ children }) => {
     <div className='plane'>
       <DriftVision content={planeContent[contentIndex]} />
       <DriftControls actions={actions} />
+      <DriftProgress currentPosition={contentIndex + 1} totalStops={planeContent.length} />
     </div>
   )
 }

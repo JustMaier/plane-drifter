@@ -1,7 +1,7 @@
 import React from 'react'
 import Markdown from 'react-markdown'
 
-const TextRegex = /^(\\?\[?(.*)\\?\])?\s*(.+)/s
+const TextRegex = /^(\\?\[?(.*?)\\?\])?\s*(.+)/s
 
 const parseStyles = styles => styles
   .split(';')
@@ -18,7 +18,7 @@ const parseStyles = styles => styles
 const TextVision = ({ content }) => {
   const textParts = content.replace('\\[', '[').replace('\\]', ']').match(TextRegex)
   const style = textParts[2] ? parseStyles(textParts[2]) : null
-  const text = textParts[3]
+  const text = textParts[3].replace(/\\\*/g, '*')
   return (
     <div className={`text-vision ${text.length > 200 ? 'long' : ''}`} style={style}>
       <div className='text-vision-content'>

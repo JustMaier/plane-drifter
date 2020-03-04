@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
-const LinkRegex = /\[(.*)\]\((.*)\)/
+const LinkRegex = /^\[(.*)\]\((.*)\)/
+const BackgroundImageRegex = /url\s?\(\'?\[(.+)\]\((.+)\)\'?\)/gi
 const CodeRegex = / {4}/g
+const filterStop = string => {
+  if (string.startsWith('&amp')) return false
+  return true
+}
 const processStop = string => {
   if (LinkRegex.test(string)) return string.match(LinkRegex)[2]
   else if (CodeRegex.test(string)) return string.replace(CodeRegex, '')
+  if (BackgroundImageRegex.test(string)) return string.replace(BackgroundImageRegex, 'url(\'$2\')')
   return string
 }
 
@@ -13,7 +19,7 @@ const fetchPosts = async () => {
   const { data: { children: posts } } = await (await fetch(`https://www.reddit.com/r/HigherPlane/hot/.json`)).json()
   return posts.map(x => x.data).filter(x => ContentRegex.test(x.selftext)).map(x => {
     const [full, description, contentString] = x.selftext.match(ContentRegex)
-    const content = contentString.split('\n\n').map(processStop)
+    const content = contentString.split('\n\n').filter(filterStop).map(processStop)
     return {
       id: x.id,
       title: x.title,
